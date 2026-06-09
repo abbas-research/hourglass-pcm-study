@@ -2,65 +2,35 @@
 
 ## Overview
 
-This repository presents a computational fluid dynamics (CFD) investigation of an Hourglass Phase Change Material (PCM) geometry for passive thermal management of a cylindrical 18650 lithium-ion battery.
+This repository presents a Computational Fluid Dynamics (CFD) investigation of an Hourglass Phase Change Material (PCM) geometry for passive thermal management of a cylindrical 18650 lithium-ion battery.
 
-The work extends a previously validated ANSYS Fluent model based on the thermal management study presented by Nicholls (2024). The baseline model employed a uniform N-octadecane PCM jacket surrounding an 18650 cell. In the present study, the PCM volume was redistributed into an Hourglass configuration while maintaining approximately constant PCM volume.
+The study extends a previously validated ANSYS Fluent model based on the work of Nicholls (2024). Unlike the baseline configuration, which employed a uniform PCM jacket, the present study redistributes the PCM into an Hourglass geometry while maintaining approximately constant PCM volume.
 
-The objective was to determine whether PCM redistribution could improve battery thermal performance relative to a conventional uniform PCM jacket.
+The objective is to evaluate how PCM redistribution influences battery thermal behaviour under uniform volumetric heat generation conditions.
 
 ---
 
 ## Research Objective
 
-For a fixed PCM volume, determine the effect of an Hourglass PCM distribution on battery thermal performance and compare the results with:
+Investigate the thermal performance of a volume-matched Hourglass PCM geometry surrounding a cylindrical 18650 lithium-ion battery.
 
-* Baseline Uniform PCM Jacket (G1)
-* Belly PCM Geometry (G2)
-* Hourglass PCM Geometry (G3)
+The study evaluates how redistributing PCM toward the battery ends influences thermal behaviour while maintaining approximately constant PCM volume.
 
 ---
 
-## Baseline Validation Case
+## Geometry
 
-The baseline model was reproduced from the validation case reported by Nicholls (2024).
+### Hourglass PCM Geometry
+
+![Hourglass Geometry](Geometry/Iso%20View.png)
 
 ### Battery Geometry
 
-| Parameter      | Value                                 |
-| -------------- | ------------------------------------- |
-| Cell Type      | Cylindrical 18650 Lithium-Ion Battery |
-| Diameter       | 18 mm                                 |
-| Length         | 65 mm                                 |
-| Battery Volume | 16,540 mm³                            |
-
-### PCM Geometry
-
-| Parameter     | Value              |
-| ------------- | ------------------ |
-| PCM Material  | N-octadecane       |
-| Configuration | Uniform PCM Jacket |
-| PCM Volume    | 5,973 mm³          |
-
-### Validated Thermal Results
-
-| Case                        | Average Temperature (K) | Maximum Temperature (K) |
-| --------------------------- | ----------------------: | ----------------------: |
-| Baseline Uniform PCM Jacket |                 302.134 |                 302.169 |
-
----
-
-## Hourglass PCM Geometry (G3)
-
-The Hourglass PCM configuration was developed as an inverse redistribution of the previously investigated Belly PCM geometry.
-
-PCM volume was concentrated near the battery ends while reducing PCM thickness near the battery mid-plane.
-
-### Battery Dimensions
-
-| Parameter | Value |
-| --------- | ----- |
-| Diameter  | 18 mm |
-| Length    | 65 mm |
+| Parameter    | Value                              |
+| ------------ | ---------------------------------- |
+| Battery Type | Cylindrical 18650 Lithium-Ion Cell |
+| Diameter     | 18 mm                              |
+| Length       | 65 mm                              |
 
 ### Hourglass PCM Profile
 
@@ -73,17 +43,17 @@ PCM volume was concentrated near the battery ends while reducing PCM thickness n
 
 ### PCM Volume
 
-| Parameter            |       Value |
-| -------------------- | ----------: |
-| Hourglass PCM Volume | 5,991.5 mm³ |
+| Parameter  |       Value |
+| ---------- | ----------: |
+| PCM Volume | 5,991.5 mm³ |
 
-The PCM volume differs from the baseline configuration by less than 0.4%, ensuring that performance differences are primarily caused by PCM distribution rather than PCM quantity.
+The Hourglass geometry was developed by redistributing PCM away from the battery mid-plane and increasing PCM volume near the battery ends while maintaining approximately constant PCM volume.
 
 ---
 
 ## Computational Domain
 
-The model consisted of:
+The model consists of:
 
 * One battery body (solid)
 * One PCM body (fluid)
@@ -100,12 +70,11 @@ PCM = Fluid
 
 ---
 
-## Mesh Generation
+## Mesh
 
-### Mesh Type
+### Computational Mesh
 
-* Tetrahedral
-* Patch Conforming
+![Mesh](Mesh/Iso%20View.png)
 
 ### Mesh Statistics
 
@@ -117,7 +86,7 @@ PCM = Fluid
 | Average Orthogonal Quality |  0.7636 |
 | Maximum Orthogonal Quality | 0.99426 |
 
-The solution remained numerically stable throughout the transient simulation despite the low minimum orthogonal quality.
+Mesh generation was performed using a tetrahedral patch-conforming mesh with a body sizing of 0.001 m.
 
 ---
 
@@ -125,29 +94,39 @@ The solution remained numerically stable throughout the transient simulation des
 
 ### Solver Configuration
 
-| Parameter                | Setting        |
-| ------------------------ | -------------- |
-| Solver                   | Pressure-Based |
-| Time Formulation         | Transient      |
-| Flow Model               | Laminar        |
-| Energy Equation          | Enabled        |
-| Solidification & Melting | Enabled        |
+| Parameter                      | Setting        |
+| ------------------------------ | -------------- |
+| Solver Type                    | Pressure-Based |
+| Simulation Type                | Transient      |
+| Flow Model                     | Laminar        |
+| Energy Equation                | Enabled        |
+| Solidification & Melting Model | Enabled        |
 
 ### Thermal Boundary Conditions
 
-| Parameter              |       Value |
-| ---------------------- | ----------: |
-| Heat Generation        | 65,000 W/m³ |
-| Ambient Temperature    |    298.15 K |
-| Convection Coefficient |     7 W/m²K |
+| Parameter                  |       Value |
+| -------------------------- | ----------: |
+| Volumetric Heat Generation | 65,000 W/m³ |
+| Ambient Temperature        |    298.15 K |
+| Convection Coefficient     |     7 W/m²K |
 
 ### Time Integration
 
 | Parameter                |  Value |
 | ------------------------ | -----: |
 | Time Step Size           |    1 s |
-| Total Simulation Time    | 1000 s |
+| Simulation Duration      | 1000 s |
 | Iterations per Time Step |     20 |
+
+---
+
+## Temperature Distribution
+
+### Final Temperature Contour (1000 s)
+
+![Temperature Contour](Results/Temp%20iso%20Contour.png)
+
+Temperature contours indicate that the highest temperatures occur near the battery mid-plane, while lower temperatures are observed near the battery ends.
 
 ---
 
@@ -155,11 +134,21 @@ The solution remained numerically stable throughout the transient simulation des
 
 ### Hourglass PCM Thermal Performance
 
-| Case               | Average Temperature (K) | Maximum Temperature (K) |
-| ------------------ | ----------------------: | ----------------------: |
-| Hourglass PCM (G3) |                 304.164 |                 304.508 |
+| Metric                      |     Value |
+| --------------------------- | --------: |
+| Average Battery Temperature | 304.164 K |
+| Maximum Battery Temperature | 304.508 K |
 
-### Comparison with Baseline Uniform PCM
+### Comparison with Baseline Validation Case
+
+The baseline validation model reproduced the uniform PCM jacket case reported by Nicholls (2024).
+
+| Case                        | Average Temperature (K) | Maximum Temperature (K) |
+| --------------------------- | ----------------------: | ----------------------: |
+| Baseline Uniform PCM Jacket |                 302.134 |                 302.169 |
+| Hourglass PCM Geometry      |                 304.164 |                 304.508 |
+
+### Difference Relative to Baseline
 
 | Metric                       | Difference |
 | ---------------------------- | ---------: |
@@ -168,64 +157,26 @@ The solution remained numerically stable throughout the transient simulation des
 
 ---
 
-## Comparison with Other PCM Distributions
-
-| Geometry                    | Average Temperature (K) | Maximum Temperature (K) |
-| --------------------------- | ----------------------: | ----------------------: |
-| Uniform PCM Jacket (G1)     |                 302.134 |                 302.169 |
-| Belly PCM Geometry (G2)     |                 304.242 |                 304.585 |
-| Hourglass PCM Geometry (G3) |                 304.164 |                 304.508 |
-
-### Relative Performance Ranking
-
-| Rank | Geometry                  |
-| ---- | ------------------------- |
-| 1    | Uniform PCM Jacket (Best) |
-| 2    | Hourglass PCM Geometry    |
-| 3    | Belly PCM Geometry        |
-
----
-
-## Temperature Evolution
-
-Battery temperature increased smoothly throughout the transient simulation.
-
-Analysis of the temperature-monitor history showed accelerated heating after approximately 600–700 seconds, indicating a reduction in PCM thermal buffering effectiveness as melting progressed.
-
-The final average battery temperature reached:
-
-```text
-304.164 K
-```
-
-after 1000 seconds of simulation time.
-
----
-
 ## Discussion
 
-The primary objective of the study was to determine whether redistributing PCM while maintaining constant PCM volume could improve thermal performance.
+The objective of the study was to evaluate whether redistributing PCM while maintaining approximately constant PCM volume could improve battery thermal performance.
 
-Results demonstrated that:
+Results indicate that the Hourglass PCM geometry produced higher battery temperatures than the baseline uniform PCM configuration.
 
-* Uniform PCM distribution produced the lowest battery temperatures.
-* Redistributing PCM away from a uniform jacket increased battery temperature.
-* The Hourglass configuration performed slightly better than the Belly configuration.
-* The difference between Hourglass and Belly geometries was small (~0.08 K).
+Temperature contours show that the battery mid-plane remains the dominant thermal hotspot throughout the transient simulation. Consequently, reducing PCM thickness near the centre of the battery decreased the effectiveness of heat absorption and thermal buffering.
 
-Temperature contours revealed that the battery mid-plane remained the dominant thermal hotspot throughout the simulation. Consequently, reducing PCM thickness near the center of the cell decreased thermal effectiveness despite increasing PCM volume near the battery ends.
-
-These findings indicate that under uniform volumetric heat generation, a uniformly distributed PCM jacket provides superior thermal management compared with the investigated non-uniform PCM distributions.
+The results suggest that, under uniform volumetric heat generation, relocating PCM away from the battery mid-plane is detrimental to thermal performance.
 
 ---
 
 ## Key Findings
 
-1. Uniform PCM distribution achieved the best thermal performance.
-2. Hourglass PCM increased average battery temperature by approximately 2.03 K relative to the baseline.
-3. Hourglass PCM increased maximum battery temperature by approximately 2.34 K relative to the baseline.
-4. Hourglass PCM performed marginally better than Belly PCM.
-5. PCM redistribution away from the battery mid-plane reduced thermal effectiveness under uniform heat generation conditions.
+* Hourglass PCM geometry reached an average battery temperature of 304.164 K.
+* Hourglass PCM geometry reached a maximum battery temperature of 304.508 K.
+* Average battery temperature increased by approximately 2.03 K relative to the baseline uniform PCM jacket.
+* Maximum battery temperature increased by approximately 2.34 K relative to the baseline uniform PCM jacket.
+* The battery mid-plane remained the dominant thermal hotspot throughout the simulation.
+* Redistributing PCM toward the battery ends reduced thermal effectiveness under uniform heat generation conditions.
 
 ---
 
@@ -255,7 +206,7 @@ Report/
 └── Summary.txt
 
 Ansys Files/
-├── Workbench Project
+├── Workbench Project Files
 ├── Fluent Case Files
 ├── Fluent Data Files
 └── Mesh Files
@@ -265,16 +216,14 @@ Ansys Files/
 
 ## Future Work
 
-The present study assumes uniform volumetric heat generation throughout the battery volume.
+Future investigations may examine:
 
-Future investigations may explore:
-
-* Non-uniform heat-generation distributions
+* Non-uniform battery heat-generation distributions
 * Axial thermal gradients
-* Tab-region heating effects
+* Battery tab heating effects
 * Multi-Scale Multi-Domain (MSMD) battery models
 * Electrochemically derived heat-generation profiles
-* Geometry optimization under realistic battery loading conditions
+* PCM geometry optimization under realistic battery operating conditions
 
 ---
 
