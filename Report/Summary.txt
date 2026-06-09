@@ -1,0 +1,40 @@
+Objective
+
+Investigate the thermal performance of a volume-matched
+Hourglass PCM geometry surrounding a cylindrical 18650
+lithium-ion battery.
+
+Simulation Setup
+
+ANSYS Fluent
+Transient
+Pressure-Based
+Laminar
+Energy ON
+Solidification & Melting ON
+
+Heat Generation = 65000 W/m³
+Ambient Temperature = 298.15 K
+Convection Coefficient = 7 W/m²K
+
+Time Step = 1 s
+Simulation Duration = 1000 s
+
+Mesh Statistics
+
+Nodes = 36,999
+Elements = 202,904
+
+Minimum Orthogonal Quality = 0.00963
+Average Orthogonal Quality = 0.7636
+Maximum Orthogonal Quality = 0.99426
+
+Conclusion
+
+The Hourglass PCM geometry produced an average battery
+temperature of 304.164 K and a maximum temperature of
+304.508 K.
+
+Compared with the baseline uniform PCM jacket, the
+Hourglass geometry increased average temperature by
+approximately 2.03 K.

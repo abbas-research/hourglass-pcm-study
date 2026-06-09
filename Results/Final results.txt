@@ -1,0 +1,20 @@
+Hourglass PCM Study Results
+
+Battery:
+Diameter = 18 mm
+Length = 65 mm
+
+PCM Volume = 5991.5 mm³
+
+Average Temperature = 304.164 K
+Maximum Temperature = 304.508 K
+
+Baseline Uniform PCM
+
+Average Temperature = 302.134 K
+Maximum Temperature = 302.169 K
+
+Difference
+
+Average Temperature Increase = +2.030 K
+Maximum Temperature Increase = +2.339 K

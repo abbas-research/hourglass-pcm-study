@@ -1,0 +1,13 @@
+PRIMARY REFERENCE
+
+Nicholls, R. A. (2024).
+Thermal Management of Cylindrical Lithium-Ion Batteries Using Phase Change Materials.
+PhD Thesis, Staffordshire University, United Kingdom.
+
+SUPPORTING REFERENCE
+
+Drake, S. J., Martin, M., Wetz, D. A., Ostanek, J. K., Miller, S. P., Heinzel, J. M., & Jain, A. (2015).
+Heat generation rate measurement in a Li-ion cell at large C-rates through temperature and heat flux measurements.
+Journal of Power Sources, 285, 266–273.
+https://doi.org/10.1016/j.jpowsour.2015.03.008
+
